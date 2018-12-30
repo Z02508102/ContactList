@@ -3,7 +3,7 @@ package com.zpx.contact;
 /**
  * 联系人实体类
  */
-public class Contact {
+public class Contact{
 
     private int headImgId;
     private String name;

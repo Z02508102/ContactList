@@ -1,56 +1,106 @@
 package com.zpx.contact;
 
-import android.content.ContentValues;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+public class PeopleActivity extends AppCompatActivity implements View.OnClickListener{
 
-public class PeopleActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private EditText etName;
+   /* private EditText etName;
     private EditText etPhoneNumber;
     private Button btnInsert;
     private Button btnDelete;
     private Button btnUpdate;
     private Button btnQuery;
-    private TextView tvList;
+    private TextView tvView;*/
 
-    private ListView listView;
-    //数据源
-    private List<Contact> datas = new ArrayList<Contact>();
-    //自定义适配器对象
-    private MainActivity.MyAdapter adapter;
     //Data Access Object:对contact表进行CRUD操作的类
     private  ContactDao dao;
+    //private Contact contact;
+
+    private LinearLayout linearLayout;
+    private TextView tvName;
+    private TextView tvNumber;
+    private String name;
+    private String phoneNumber;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailed_info);
-        //初始化组件
-        initView();
+        linearLayout = findViewById(R.id.call);
+
+        tvName = findViewById(R.id.tv_name);
+        tvNumber = findViewById(R.id.tv_number);
+
+        //动态权限申请
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS},1);
+        }else{
+            readContacts();
+        }
 
         //给ListView添加item点击事件监听器
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
                 //拨打电话
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + datas.get(position).getNumber());
+                Uri data = Uri.parse("tel:" + phoneNumber);
                 intent.setData(data);
                 startActivity(intent);
             }
         });
     }
 
-    private void initView(){
+    private void readContacts (){
+
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        phoneNumber = intent.getStringExtra("phoneNumber");
+        //Toast.makeText(PeopleActivity.this,position,Toast.LENGTH_SHORT).show();
+        //Cursor cursor = null;
+        try {
+            //cursor = dao.selectAll(id);
+            //Contact contact = null;
+            if (name != null && !name.equals("") && phoneNumber != null && !phoneNumber.equals("")){
+                //创建一个联系人对象
+                /*contact = new Contact();
+                //获取联系人姓名
+                String name = cursor.getString(1);
+                //获取联系人手机号码
+                String number = cursor.getString(2);
+                //获取联系人的备注
+                //String remark = cursor.getString(2);
+                //设置联系人属性
+                contact.setName(name);
+                contact.setNumber(number);
+                // contact.setRemark(remark);
+                //将联系人添加到集合中
+                //datas.add(contact);
+*/
+                tvName.setText(name);
+                tvNumber.setText(phoneNumber);
+            }else {
+                tvName.setText("");
+                tvNumber.setText("");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+   /*private void initView(){
         etName =(EditText)findViewById(R.id.et_name);
         etPhoneNumber =(EditText)findViewById(R.id.et_phone_number);
 
@@ -65,10 +115,10 @@ public class PeopleActivity extends AppCompatActivity implements View.OnClickLis
         btnDelete.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
         //btnQuery.setOnClickListener(this);
-    }
+    }*/
 
     public void onClick(View v){
-        String name = null;
+        /*String name = null;
         String phoneNum = null;
 
         switch (v.getId()) {
@@ -113,10 +163,67 @@ public class PeopleActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
                 break;
-            /*case R.id.btn_query:
+            case R.id.btn_query:
                 readContacts();
-                break;*/
-        }
+                break;
+        }*/
     }
+
+
+    /*class MyAdapter extends BaseAdapter {
+        //得到item的总数
+        @Override
+        public int getCount(){
+            return datas.size();
+        }
+
+        //得到每个position位置上的item代表的对象
+        @Override
+        public Object getItem(int position){
+            return datas.get(position);
+        }
+
+        //得到item的id
+        @Override
+        public long getItemId(int position){
+            return position;
+        }
+
+        //得到item的view视图
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
+            ViewHolder holder;
+            if(convertView == null){
+                //利用布局填充器填充自定义的ListView item的布局
+                convertView = LayoutInflater.from(PeopleActivity.this).inflate(R.layout.detailed_info,null);
+                holder = new ViewHolder();
+                //利用得到的view来进行findViewById()
+                //holder.ivHead =(ImageView)convertView.findViewById(R.id.iv_head);
+                holder.tvName = (TextView)convertView.findViewById(R.id.tv_name);
+                holder.tvNumber = (TextView)convertView.findViewById(R.id.tv_number);
+
+                //将holder存入view的tag中
+                convertView.setTag(holder);
+            }else{
+                //在convertview不为空的情况下，重复使用convertView
+                //并去除存储的tag
+                holder = (ViewHolder)convertView.getTag();
+            }
+
+            //设置holder中每个控件的内容
+            //holder.ivHead.setImageResource(datas.get(position).getHeadImgId());
+            holder.tvName.setText(datas.get(position).getName());
+            holder.tvNumber.setText(datas.get(position).getNumber());
+            //最后不要忘了返回convertView
+            return convertView;
+        }
+
+        //为了减少findViewById的次数
+        class ViewHolder{
+            ImageView ivHead;
+            TextView tvName;
+            TextView tvNumber;
+        }
+    }*/
 
 }

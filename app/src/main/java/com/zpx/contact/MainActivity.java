@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView = (ListView)findViewById(R.id.lv_list);
+        listView = findViewById(R.id.lv_list);
         //初始化组件
         initView();
         dao = new ContactDao(this);
@@ -69,9 +69,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.setData(data);
                 startActivity(intent);*/
 
-                Intent intent = new Intent();
-                intent.setClassName("com.zpx.contact",
-                        "com.android.contacts.activities.PeopleActivity");
+                Contact contact = (Contact) adapter.getItem(position);
+                String name = contact.getName();
+                String phoneNumber = contact.getNumber();
+                //Toast.makeText(MainActivity.this,item.getNumber(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, PeopleActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("phoneNumber", phoneNumber);
                 startActivity(intent);
             }
         });
@@ -141,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*@Override
+   /* @Override
     public void onClick(View v) {
 
     }*/
@@ -197,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permisssions,
                                            @NonNull int[] grantResults){

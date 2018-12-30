@@ -54,4 +54,10 @@ public class ContactDao {
         SQLiteDatabase db = helper.getWritableDatabase();
         return db.query(TABLE_NAME, null,null, null, null, null, null);
     }
+
+    //根据id查询信息
+    public Cursor selectAll(String id){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        return db.query(TABLE_NAME, new String[]{"_id"}, "id=?", new String[]{id},null,null,null);
+    }
 }
