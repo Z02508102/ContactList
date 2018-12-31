@@ -34,9 +34,9 @@ public class ContactDao {
     }
 
     //根据联系人姓名删除数据
-    public int deleteByName(String name) {
+    public int deleteByName(Contact contact) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        int number = db.delete(TABLE_NAME, "name=?", new String[]{name});
+        int number = db.delete(TABLE_NAME, "name=?", new String[]{contact.getName()});
         db.close();
         return number;
     }
@@ -51,13 +51,10 @@ public class ContactDao {
 
     //查询所有记录
     public Cursor selectAll(){
+
         SQLiteDatabase db = helper.getWritableDatabase();
         return db.query(TABLE_NAME, null,null, null, null, null, null);
     }
 
-    //根据id查询信息
-    public Cursor selectAll(String id){
-        SQLiteDatabase db = helper.getWritableDatabase();
-        return db.query(TABLE_NAME, new String[]{"_id"}, "id=?", new String[]{id},null,null,null);
-    }
+
 }
