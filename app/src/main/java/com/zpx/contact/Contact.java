@@ -5,18 +5,10 @@ package com.zpx.contact;
  */
 public class Contact{
 
-    private int headImgId;
     private String name;
     private String number;
-    private String remark;
-
-    public int getHeadImgId() {
-        return headImgId;
-    }
-
-    public void setHeadImgId(int headImgId) {
-        this.headImgId = headImgId;
-    }
+    //private int headImgId;
+    //private String remark;
 
     public String getName() {
         return name;
@@ -34,12 +26,21 @@ public class Contact{
         this.number = number;
     }
 
-    public String getRemark() {
+    /*public int getHeadImgId() {
+        return headImgId;
+    }
+
+    public void setHeadImgId(int headImgId) {
+        this.headImgId = headImgId;
+    }
+*/
+
+    /*public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
+    }*/
 
 }

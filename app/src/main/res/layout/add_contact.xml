@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_main"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:padding="8dp">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加联系人"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/tva_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名:"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+        <EditText
+                android:id="@+id/eta_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入姓名"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/tva_phoneNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机:"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+        <EditText
+                android:id="@+id/eta_phoneNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入手机号"
+                android:inputType="number"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/btn_add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="保存"/>
+    </LinearLayout>
+</LinearLayout>

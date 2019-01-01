@@ -12,7 +12,7 @@ public class ContactDao {
     private static String TABLE_NAME = "contact";
 
     //生成DBHelper类
-    public ContactDao(Context context){
+    public ContactDao(Context context) {
         this.mContext = context;
         helper = new DBHelper(mContext);
     }
@@ -20,15 +20,15 @@ public class ContactDao {
     //添加联系人
     public long insert(ContentValues values) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        long id = db.insert(TABLE_NAME, null, values);
+        long number = db.insert(TABLE_NAME, null, values);
         db.close();
-        return id;
+        return number;
     }
 
     //删除全部数据
     public int deleteAll() {
         SQLiteDatabase db = helper.getWritableDatabase();
-        int number = db.delete(TABLE_NAME, null,null);
+        int number = db.delete(TABLE_NAME, null, null);
         db.close();
         return number;
     }
@@ -50,11 +50,9 @@ public class ContactDao {
     }
 
     //查询所有记录
-    public Cursor selectAll(){
+    public Cursor selectAll() {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.query(TABLE_NAME, null,null, null, null, null, null);
+        return db.query(TABLE_NAME, null, null, null, null, null, null);
     }
-
-
 }
