@@ -10,6 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="添加联系人"
+            android:gravity="center"
             android:textColor="#000000"
             android:textSize="20sp"/>
 
@@ -59,10 +60,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <Button
-                android:id="@+id/btn_add"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="保存"/>
+            android:id="@+id/btn_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="保存"/>
     </LinearLayout>
 </LinearLayout>

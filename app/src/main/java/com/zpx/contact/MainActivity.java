@@ -27,10 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tvlPhoneNum;
     private EditText etuName;
     private EditText etuPhoneNum;
+    private EditText etQueryByName;
     private Button btnSave;
-    private Button btnInsert;
-    private Button btnDelete;
-    private Button btnUpdate;
     private Button btnQuery;
     private TextView tvList;
     private ListView listView;
@@ -120,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case 1:
                                 AlertDialog.Builder edit3 = new AlertDialog.Builder(MainActivity.this);
                                 edit3.setTitle("删除联系人");
-                                edit3.setTitle("确定删除吗");
+                                edit3.setTitle("确定删除  "+ datas.get(position).getName() +"  吗");
                                 edit3.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
